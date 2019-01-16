@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 public class SupplyAsyncThenApplyAsync {
 
     public static void main(String[] args) {
-        Executor executor = Executors.newFixedThreadPool(2);
         System.out.println("Main: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
         CompletableFuture<String> bluulinkRocks = CompletableFuture.supplyAsync(() -> {
             try {
@@ -18,7 +17,7 @@ public class SupplyAsyncThenApplyAsync {
             }
             System.out.println("SupplyAsync: Finished Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
             return "ROCKS!!!";
-        }, executor).thenApplyAsync(name -> {
+        }).thenApplyAsync(name -> {
             System.out.println("ThenApplyAsync: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
             try {
                 Thread.sleep(5000);
