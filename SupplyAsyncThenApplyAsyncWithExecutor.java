@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -8,35 +7,35 @@ public class SupplyAsyncThenApplyAsyncWithExecutor {
 
     public static void main(String[] args) {
         Executor executor = Executors.newFixedThreadPool(2);
-        System.out.println("Main: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+        System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " Started Execution");
         CompletableFuture<String> bluulinkRocks = CompletableFuture.supplyAsync(() -> {
             try {
-                System.out.println("SupplyAsync: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+                System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " SupplyAsync: Started Execution");
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new IllegalStateException(e);
             }
-            System.out.println("SupplyAsync: Finished Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " SupplyAsync: Finished Execution");
             return "ROCKS!!!";
         }).thenApplyAsync((name) -> {
-            System.out.println("ThenApplyAsync: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " ThenApplyAsync: Started Execution");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("ThenApplyAsync: Finished Executing in" + Thread.currentThread().getName() + "and Now it is:" + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " ThenApplyAsync: Finished Execution");
             return "Hello" + name;
         }, executor).thenApplyAsync((name) -> {
-            System.out.println("ThenApplyAsync2: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " ThenApplyAsync2: Started Execution");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("ThenApplyAsync2: Finished Executing in" + Thread.currentThread().getName() + "and Now it is:" + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " ThenApplyAsync2: Finished Execution");
             return "Hello" + name;
         });
 
@@ -49,6 +48,6 @@ public class SupplyAsyncThenApplyAsyncWithExecutor {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println(Thread.currentThread().getName() + ": Reached the end and Now it is: " + LocalDateTime.now());
+        System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + Thread.currentThread().getName() + ": Reached the end and Now it is: " + LocalDateTime.now());
     }
 }

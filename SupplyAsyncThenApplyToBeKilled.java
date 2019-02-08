@@ -1,14 +1,12 @@
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+
 
 public class SupplyAsyncThenApplyToBeKilled {
 
     public static void main(String[] args) {
         System.out.println("Main: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
-        CompletableFuture<String> bluulinkRocks = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture.supplyAsync(() -> {
             try {
                 System.out.println("SupplyAsync: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
                 Thread.sleep(5000);

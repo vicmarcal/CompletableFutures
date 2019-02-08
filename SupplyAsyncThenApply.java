@@ -1,28 +1,28 @@
 import java.time.LocalDateTime;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
 
 public class SupplyAsyncThenApply {
 
     public static void main(String[] args) {
-        System.out.println("Main: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+        System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " Started Execution");
         CompletableFuture<String> bluulinkRocks = CompletableFuture.supplyAsync(() -> {
             try {
-                System.out.println("SupplyAsync: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+                System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " SupplyAsync: Started Execution");
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new IllegalStateException(e);
             }
-            System.out.println("SupplyAsync: Finished Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " SupplyAsync: Finished Execution");
             return "ROCKS!!!";
         }).thenApply(name -> {
-            System.out.println("ThenApply: Started Executing in " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " ThenApply: Started Execution");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
+                // TODO Auto-generated catch blocks
                 e.printStackTrace();
             }
-            System.out.println("ThenApply: Finished Executing in" + Thread.currentThread().getName() + "and Now it is:" + LocalDateTime.now());
+            System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " ThenApply: Finished Execution");
             return "Hello " + name;
         });
 
@@ -35,7 +35,7 @@ public class SupplyAsyncThenApply {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("Main: Reached the get " + Thread.currentThread().getName() + " and Now it is: " + LocalDateTime.now());
+        System.out.println(LocalDateTime.now() + " - " + Thread.currentThread().getName() + " Reached the end");
         // Block and get the result of the future.
         // If the Main thread sleep is less than 10.000, bluulinkRocks futures didnt yet
         // executed fully....so Main will have to wait
